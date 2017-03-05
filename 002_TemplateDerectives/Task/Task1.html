@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="calcApp">
+<head>
+    <title>Task 1</title>
+    <script src="../Libraries/angular.js"></script>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <script>
+
+    var calcApp = angular.module("calcApp", []);
+
+    calcApp.controller("calcAppCtrl", function ($scope) {
+
+        $scope.sum = function () {
+            $scope.result = Number($scope.firstValue) + Number($scope.secondValue);
+        }
+
+        $scope.deduct = function () {
+            $scope.result = Number($scope.firstValue) - Number($scope.secondValue);
+        }
+
+        $scope.multiply = function () {
+            $scope.result = Number($scope.firstValue) * Number($scope.secondValue);
+        }
+
+        $scope.divide = function () {
+            $scope.result = Number($scope.firstValue) / Number($scope.secondValue);
+        }
+
+    });
+
+    </script>
+</head>
+<body>
+    <div class="panel panel-default">
+        <h1 class="panel-heading">ITVDN News</h1>
+
+        <div class="panel-body">
+            <div class="well col-md-6 col-md-offset-3">
+                <form action="" class="form-horizontal" ng-controller="calcAppCtrl">
+                    <div class="form-group row">
+                        <label for="value1" class="col-md-4 control-label">First value</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="value1" placeholder="Enter first value" ng-model="firstValue">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="value2" class="col-md-4 control-label">Second value</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="value2" placeholder="Enter second value" ng-model="secondValue">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="btn btn-primary col-md-2 col-md-offset-4" ng-click="sum()">+</div>
+                        <div class="btn btn-primary col-md-2" ng-click="deduct()">-</div>
+                        <div class="btn btn-primary col-md-2" ng-click="multiply()">*</div>
+                        <div class="btn btn-primary col-md-2" ng-click="divide()">/</div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-md-offset-5" ng-bind-template="Result: {{result}}"></label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

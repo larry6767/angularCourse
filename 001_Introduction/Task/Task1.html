@@ -9,30 +9,30 @@
     <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
 
     <script>
-    	// module
+        // module
 
-    	var newsListApp = angular.module("newsListApp", []);
+        var newsListApp = angular.module("newsListApp", []);
 
-    	// controller
+        // controller
 
-    	newsListApp.controller("newsListCtrl", function ($scope) {
-    		$scope.data = model;
-    	});
+        newsListApp.controller("newsListCtrl", function ($scope) {
+            $scope.data = model;
+        });
 
     </script>
 </head>
 <body ng-controller="newsListCtrl">
-	<div class="panel panel-default">
-		<h1 class="panel-heading">ITVDN News</h1>
+    <div class="panel panel-default">
+        <h1 class="panel-heading">ITVDN News</h1>
 
-		<div class="panel-body">
-			<div class="well" ng-repeat="news in data">
-				<h3 class="panel-heading">{{news.title}}</h3>
-				<p>{{news.published}}</p>
-				<p>{{news.description}}</p>
-				<a href="{{news.link}}" class="btn btn-primary">Читать дальше</a>
-			</div>
-		</div>
-	</div>
+        <div class="panel-body">
+            <div class="well" ng-repeat="news in data">
+                <h3 class="panel-heading">{{news.title}}</h3>
+                <p>{{news.published}}</p>
+                <p>{{news.description}}</p>
+                <a href="{{news.link}}" class="btn btn-primary">Читать дальше</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
