@@ -1,1 +1,3 @@
 Libraries/
+node_modules/
+gulpfile.js

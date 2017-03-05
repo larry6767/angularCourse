@@ -17,6 +17,11 @@
                 todoModel.addItem($scope.newTask.name, $scope.newTask.date, $scope.newTask.description, $scope.newTask.complete);
                 todoModel.save();
             }
+
+            $scope.showDescription = function($index) {
+                $scope.currentDescription = $scope.tasks[$index].description;
+                $scope.descriptionUrl = "description.html";
+            }
         });
 
     </script>
@@ -27,23 +32,30 @@
     <div class="container">
 
         <h3>ToDo List</h3>
+        
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Completed</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="task in tasks">
+                        <td>{{task.name}}</td>
+                        <td>{{task.duedate}}</td>
+                        <td>{{task.completed}}</td>
+                        <td>
+                            <button class="btn btn-primary" ng-click="showDescription($index)">More</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <ng-include src="descriptionUrl"></ng-include>
+        </div>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Completed</th>
-                </tr>
-            </thead>
-            <tr ng-repeat="task in tasks">
-                <td>{{task.name}}</td>
-                <td>{{task.description}}</td>
-                <td>{{task.duedate}}</td>
-                <td>{{task.completed}}</td>
-            </tr>
-        </table>
 
         <div>
             <form class="form-horizontal">

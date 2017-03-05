@@ -11,21 +11,21 @@
 
     var calcApp = angular.module("calcApp", []);
 
-    calcApp.controller("calcAppCtrl", function ($scope) {
+    calcApp.controller("calcAppCtrl", function($scope) {
 
-        $scope.sum = function () {
+        $scope.sum = function() {
             $scope.result = Number($scope.firstValue) + Number($scope.secondValue);
         }
 
-        $scope.deduct = function () {
+        $scope.deduct = function() {
             $scope.result = Number($scope.firstValue) - Number($scope.secondValue);
         }
 
-        $scope.multiply = function () {
+        $scope.multiply = function() {
             $scope.result = Number($scope.firstValue) * Number($scope.secondValue);
         }
 
-        $scope.divide = function () {
+        $scope.divide = function() {
             $scope.result = Number($scope.firstValue) / Number($scope.secondValue);
         }
 
