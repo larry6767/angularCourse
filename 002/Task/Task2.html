@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="testApp">
+<head>
+    <title>Task 1</title>
+    <script src="../Libraries/angular.js"></script>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <script>
+        var questions = [{questionText: '1Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis in quo, magni quis perspiciatis deleniti tempore debitis sint doloremque id pariatur nihil tempora commodi, laboriosam. Officiis in eligendi modi nostrum.',
+            answers: [{display: 'Lorem ipsum dolor sit amet1', value: '1'}, {display: 'Lorem ipsum dolor sit amet2', value: '2'}, {display: 'Lorem ipsum dolor sit amet3', value: '3'}, {display: 'Lorem ipsum dolor sit amet4', value: '4'}],
+            rightAnswer: '1'}, {questionText: '2Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis in quo, magni quis perspiciatis deleniti tempore debitis sint doloremque id pariatur nihil tempora commodi, laboriosam. Officiis in eligendi modi nostrum.',
+            answers: [{display: 'Lorem ipsum dolor sit amet5', value: '5'}, {display: 'Lorem ipsum dolor sit amet6', value: '6'}, {display: 'Lorem ipsum dolor sit amet7', value: '7'}, {display: 'Lorem ipsum dolor sit amet8', value: '8'}],
+            rightAnswer: '5'}, {questionText: '3Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis in quo, magni quis perspiciatis deleniti tempore debitis sint doloremque id pariatur nihil tempora commodi, laboriosam. Officiis in eligendi modi nostrum.',
+            answers: [{display: 'Lorem ipsum dolor sit amet9', value: '9'}, {display: 'Lorem ipsum dolor sit amet10', value: '10'}, {display: 'Lorem ipsum dolor sit amet11', value: '11'}, {display: 'Lorem ipsum dolor sit amet12', value: '12'}],
+            rightAnswer: '9'}];
+
+        var testApp = angular.module("testApp", []);
+
+        testApp.controller("testAppCtrl", function($scope) {
+            $scope.questionNumber = 0;
+
+            $scope.questions = questions;
+            $scope.userAnswers = [];
+            $scope.userRightAnswer = 0;
+
+            $scope.showNextQuestion = function(answer, index) {
+                $scope.userAnswers[$scope.questionNumber] = answer;
+
+                if (answer == questions[index].rightAnswer) {
+                    $scope.userRightAnswer++;
+                }
+
+                $scope.questionNumber++;
+            }
+        });
+
+    </script>
+</head>
+<body ng-controller="testAppCtrl">
+    <div class="panel panel-default">
+        <h1 class="panel-heading">Test</h1>
+        <p ng-if="questionNumber < questions.length">question {{questionNumber + 1}} of {{questions.length}}</p>
+        <p ng-if="questionNumber == questions.length">Test completed</p>
+
+        <div class="panel-body">
+            <div class="well col-md-6 col-md-offset-3" ng-repeat="question in questions" ng-init="questionIndex=$index" ng-if="$index == questionNumber">
+                <p>{{question.questionText}}</p>
+                <div class="row">
+                    <div class="form-group col-md-3" ng-repeat="answer in question.answers">
+                        <label for="ckeck1" class="form-label">{{answer.display}}</label>
+                        <input id="ckeck1" type="checkbox" class="form-control" ng-click="showNextQuestion(answer.value, questionIndex)">
+                    </div>
+                </div>
+            </div>
+            <div class="well col-md-6 col-md-offset-3" ng-if="questionNumber == questions.length">
+                <p>Your result: {{userRightAnswer}} of {{questions.length}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
