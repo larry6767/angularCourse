@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="broadcastApp">
+<head>
+    <title>Task 1</title>
+    <script src="../Libraries/angular.js"></script>
+
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+
+    <script>
+    var broadcastApp = angular.module('broadcastApp', []);
+
+    broadcastApp.controller('senderCtrl', function($scope, $rootScope) {
+        $scope.copyValue = function() {
+            $rootScope.$broadcast('sendValue', {
+                value: $scope.value
+            });
+        }
+    });
+
+    broadcastApp.controller('receiverCtrl', function($scope) {
+        $scope.$on('sendValue', function(event, args) {
+            $scope.copy = args.value;
+        });
+
+        $scope.pasteValue = function() {
+            $scope.value = $scope.copy;
+        }
+    });
+    </script>
+
+</head>
+<body>
+    <div class="panel panel-default">
+        <h1 class="panel-heading">Controllers</h1>
+
+        <div class="row" ng-controller="senderCtrl">
+            <div class="well col-md-6 col-md-offset-3">
+                <div class="col-md-9">
+                    <input type="text" class="form-control" ng-model="value">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" style="width: 100%;" ng-click="copyValue()">copy</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-controller="receiverCtrl">
+            <div class="well col-md-6 col-md-offset-3">
+                <div class="col-md-9">
+                    <input type="text" class="form-control" ng-model="value">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary" style="width: 100%;" ng-click="pasteValue()">paste</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
