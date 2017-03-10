@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="formApp">
+<head>
+
+    <title>Showing an error message</title>
+
+    <script src="../Libraries/angular.js"></script>
+    <link href="../Libraries/bootstrap-theme.css" rel="stylesheet" />
+    <link href="../Libraries/bootstrap.css" rel="stylesheet" />
+
+    <script>
+    angular.module("formApp", [])
+    .controller("formAppCtrl", function($scope) {
+
+        $scope.users = [];
+
+        $scope.addNewUser = function(user) {
+            $scope.users.push({
+                userName: user.userName,
+                userEmail: user.userEmail,
+                userNumber: user.userNumber,
+                userPassword: user.userPassword
+            });
+        }
+
+        $scope.getError = function(error, el) {
+            if (angular.isDefined(error)) {
+                if (error.required) {
+                    return "Field can not be empty";
+                } else if (error.email) {
+                    return "Enter correct email";
+                } else if (error.minlength || error.maxlength) {
+                    return "Number must consist of 11 digits";
+                }
+            }
+        }
+    });
+
+    </script>
+    <style>
+        .ng-invalid-required.ng-dirty {
+            background: lightpink;
+        }
+        .ng-valid-required.ng-dirty {
+            background: lightgreen;
+        }
+        .ng-invalid.ng-dirty {
+            background: lightgoldenrodyellow;
+        }
+    </style>
+</head>
+<body ng-controller="formAppCtrl">
+    <div class="panel" style="width:300px">
+        <form name="myForm" novalidate ng-submit="addNewUser(newUser)">
+            <div class="well">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input name="userName" type="text" class="form-control" ng-model="newUser.userName" required>
+                    <div class="error" ng-show="myForm.userName.$invalid && myForm.userName.$dirty">
+                        {{getError(myForm.userName.$error)}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input name="userEmail" type="email" class="form-control" ng-model="newUser.userEmail" required>
+                    <div class="error" ng-show="myForm.userEmail.$invalid && myForm.userEmail.$dirty">
+                        {{getError(myForm.userEmail.$error)}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Phone number:</label>
+                    <input name="userNumber" type="number" class="form-control" ng-model="newUser.userNumber" ng-minlength="11" ng-maxlength="11" required>
+                    <div class="error" ng-show="myForm.userNumber.$invalid && myForm.userNumber.$dirty">
+                        {{getError(myForm.userNumber.$error)}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input name="userPassword" type="password" class="form-control" ng-model="newUser.userPassword" ng-minlength="6" required>
+                    <div class="error" ng-show="myForm.userPassword.$invalid && myForm.userPassword.$dirty">
+                        Password can not be shorter than 6 characters
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm password:</label>
+                    <input name="userPasswordConfirm" type="password" class="form-control" ng-model="newUser.userPasswordConfirm" ng-pattern="newUser.userPassword" required>
+                    <div class="error" ng-show="newUser.userPassword !== newUser.userPasswordConfirm && myForm.userPasswordConfirm.$dirty">
+                        Passwords do not match
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" ng-disabled="myForm.$invalid">OK</button>
+            </div>
+        </form>
+    </div>
+    <div class="well">
+        {{users}}
+    </div>
+</body>
+</html>
